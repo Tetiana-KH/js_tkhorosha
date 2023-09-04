@@ -7,8 +7,8 @@ module.exports = {
   email: { xpath: '//*[@id="input-email"]' },
   telephone: { xpath: '//*[@id="input-telephone"]' },
   password: { xpath: '//*[@id="input-password"]' },
-  confirm: { xpath: '//*[@id="input-confirm"]' },
-  radioButton: { xpath: '//*[@id="content"]/form/div/div/input[1]' },
+  passwordConfirm: { xpath: '//*[@id="input-confirm"]' },
+  privacyRadioButton: { xpath: '//*[@id="content"]/form/div/div/input[1]' },
   continueButton: { xpath: '//*[@id="content"]/form/div/div/input[2]' },
 
   verifyRegisterAccountPage() {
@@ -22,11 +22,11 @@ module.exports = {
     I.fillField(this.email, user.email);
     I.fillField(this.telephone, user.telephone);
     I.fillField(this.password, user.password);
-    I.fillField(this.confirm, user.confirm);
+    I.fillField(this.passwordConfirm, user.passwordConfirm);
   },
 
   agreetoPrivacyPolicy() {
-    I.click(this.radioButton);
+    I.click(this.privacyRadioButton);
   },
 
   submitNewUserForm() {
