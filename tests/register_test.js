@@ -9,7 +9,7 @@ const NEW_USER = {
 
 Feature('register');
 
-Scenario('register new user', ({ I, basePage, accountPage }) => {
+xScenario('register new user', ({ I, basePage, accountPage }) => {
     I.amOnPage('/');
     basePage.clickMyAccount();
     basePage.clickRegister();

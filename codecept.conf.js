@@ -21,12 +21,18 @@ exports.config = {
       waitForNavigation: 'networkidle',
       waitForTimeout: 5000,
       windowSize: '1300x800',
+    },
+    ChaiWrapper: {
+      require: "codeceptjs-chai"
     }
   },
   include: {
     I: './steps_file.js',
     basePage: "./pages/base.js",
     accountPage: "./pages/account.js",
+    productPage: "./pages/product.js",
+    cartPage: "./pages/cart.js",
+    checkoutPage: "./pages/checkout.js",
   },
   name: 'js_tkhorosha'
 }

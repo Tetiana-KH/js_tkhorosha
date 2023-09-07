@@ -12,7 +12,7 @@ module.exports = {
   continueButton: { xpath: '//*[@id="content"]/form/div/div/input[2]' },
 
   verifyRegisterAccountPage() {
-    const regTitleText = 'Register Account';
+    const regTitleText = 'Реєстрація';
     I.seeTextEquals(regTitleText, this.h1);
   },
 
@@ -34,7 +34,7 @@ module.exports = {
   },
 
   verifySuccessfulRegistration() {
-    const regTitleText = 'Your Account Has Been Created!';
+    const regTitleText = 'Ваш обліковий запис створено!';
     I.seeTextEquals(regTitleText, this.h1);
   }
 }
