@@ -16,9 +16,9 @@ module.exports = {
     return parseFloat(priceString.replace(/[^0-9.-]/g, ''));
   },
 
-  //async getTotalPrice() {
-  //  return this.parsePrice(await I.grabTextFrom(this.totalPrice));
-  //},
+  async getTotalPrice() {
+  return this.parsePrice(await I.grabTextFrom(this.totalPrice));
+  },
 
   async getDelivery() {
     console.log('subTotal:', this.parsePrice(await I.grabTextFrom(this.subTotal)));
@@ -27,7 +27,10 @@ module.exports = {
     return this.parsePrice(await I.grabTextFrom(this.subTotal) + this.parsePrice(await I.grabTextFrom(this.flatShippingRate)));
   },
 
-  confirmAndVerifyOrder() {
-
-  }
+  verifySuccessfulPurchase() {
+    I.amOnPage('/index.php?route=checkout/success');
+    const regTitleText = 'Your order has been placed!';
+    I.seeTextEquals(regTitleText, this.h1);
+    I.click(this.successContinueButton);
+  },
 }

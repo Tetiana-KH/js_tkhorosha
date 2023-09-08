@@ -1,6 +1,7 @@
 const { pause } = require("codeceptjs");
-const { flatShippingRate, proceedToCheckout } = require("../pages/cart");
+const { flatShippingRate, proceedToCheckOut, subTotal } = require("../pages/cart");
 const { productPriceText } = require("../pages/product");
+const { totalPrice1 } = require("../pages/checkout");
 
 const USER = {
     email: "360testuser@test.com",
@@ -14,23 +15,21 @@ const USER = {
 
 Feature('buy product');
 
-Scenario('login', ({ I }) => {
-    I.login(USER);
-}).tag("login");
+//Before(({ I }) => {
+  //  I.login(USER);
+//});
 
-Scenario('buy product', async ({ I, cartPage, productPage }) => {
+Scenario('buy product', async ({ I, cartPage, productPage, checkoutPage, successPage }) => {
     I.login(USER);
     I.amOnPage('/index.php?route=product/product&product_id=44');
     productPage.selectColor();
     productPage.selectSize();
     const productPrice = await productPage.getProductPrice();
     console.log('productPrice: ', productPrice);
-    //const totalPrice = await cartPage.getTotalPrice();
-    //I.assertEqual(productPriceText + flatShippingRate, totalPrice, "Prices are not in match!");
+    const totalPrice = await cartPage.getTotalPrice();
+    I.assertEqual(subTotal + flatShippingRate, totalPrice1, "Prices are not in match!");
     productPage.addToCart();
+    I.amOnPage('http://opencart.qatestlab.net/index.php?route=checkout/cart');
+    checkoutPage.proceedToCheckOut();
+    successPage.verifySuccessfulPurchase();
 }).tag("buy");
-
-Scenario('checkout', ({ I, checkoutPage }) => {
-I.amOnPage('http://opencart.qatestlab.net/index.php?route=checkout/cart');
-checkoutPage.proceedToCheckout();
-}).tag("checkout");

@@ -7,8 +7,8 @@ module.exports = {
   sizeOption: { xpath: '//label[text()="Size"]/following-sibling::div/ul/li[2]' },
   productPriceText: { xpath: '//*[@id="content"]/div[1]/div[2]/div/div[1]/span[1]' },
   addToCartButton: { xpath: '//*[@id="button-cart"]' },
-  cartIcon: { xpath: '//*[@id="cart"]/button' },
-  checkOutButton: { xpath: '//*[@id="cart"]/ul/li[4]/div/a[2]' },
+  myAccountSpoiler: { xpath: '//*[@id="top-links"]/ul/li/span/span' },
+  shoppingCartButton: { xpath: '//*[@id="top-links"]/ul/li/ul/li[5]/a' },
 
   selectColor() {
     I.click(this.colorDropDown);
@@ -31,7 +31,7 @@ module.exports = {
 
   addToCart() {
     I.click(this.addToCartButton);
-    I.click(this.cartIcon);
-    I.click(this.checkOutButton);
+    I.click(this.myAccountSpoiler);
+    I.click(this.shoppingCartButton);
   },
 }

@@ -36,5 +36,5 @@ module.exports = {
   verifySuccessfulRegistration() {
     const regTitleText = 'Ваш обліковий запис створено!';
     I.seeTextEquals(regTitleText, this.h1);
-  }
+  },
 }
