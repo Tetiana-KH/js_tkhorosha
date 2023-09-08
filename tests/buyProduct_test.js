@@ -24,11 +24,11 @@ Scenario('buy product', async ({ I, cartPage, productPage, checkoutPage, success
     I.amOnPage('/index.php?route=product/product&product_id=44');
     productPage.selectColor();
     productPage.selectSize();
+    productPage.addToCart();
     const productPrice = await productPage.getProductPrice();
     console.log('productPrice: ', productPrice);
     const totalPrice = await cartPage.getTotalPrice();
     I.assertEqual(subTotal + flatShippingRate, totalPrice1, "Prices are not in match!");
-    productPage.addToCart();
     I.amOnPage('http://opencart.qatestlab.net/index.php?route=checkout/cart');
     checkoutPage.proceedToCheckOut();
     successPage.verifySuccessfulPurchase();
