@@ -1,6 +1,8 @@
 const { I } = inject();
 
 module.exports = {
+  languageSelectDropDown: { xpath: '//*[@id="form-language"]/div/span' },
+  selectEnglishButton: { xpath: '//*[@id="form-language"]/div/ul/li[1]/button' },
   h1: { xpath: '//*[@id="content"]/h1' },
   firstNameField: { xpath: '//*[@id="input-firstname"]' },
   lastNameField: { xpath: '//*[@id="input-lastname"]' },
@@ -12,7 +14,7 @@ module.exports = {
   continueButton: { xpath: '//*[@id="content"]/form/div/div/input[2]' },
 
   verifyRegisterAccountPage() {
-    const regTitleText = 'Реєстрація';
+    const regTitleText = 'Register Account';
     I.seeTextEquals(regTitleText, this.h1);
   },
 
@@ -34,7 +36,7 @@ module.exports = {
   },
 
   verifySuccessfulRegistration() {
-    const regTitleText = 'Ваш обліковий запис створено!';
+    const regTitleText = 'Your Account Has Been Created!';
     I.seeTextEquals(regTitleText, this.h1);
   },
 }

@@ -21,8 +21,8 @@ module.exports = {
   },
 
   parsePrice(priceString) {
-    console.log('parsed price:', parseFloat(priceString.replace(/[^0-9.-]/g, '')));
-    return parseFloat(priceString.replace(/[^0-9.-]/g, ''));
+    console.log('parsed price:', parseFloat(priceString.replace(/[^0-9.]/g, '')));
+    return parseFloat(priceString.replace(/[^0-9.]/g, ''));
   },
 
   async getProductPrice() {
@@ -31,6 +31,9 @@ module.exports = {
 
   addToCart() {
     I.click(this.addToCartButton);
+  },
+
+  openCart() {
     I.click(this.myAccountSpoiler);
     I.click(this.shoppingCartButton);
   },
