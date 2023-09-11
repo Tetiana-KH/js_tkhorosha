@@ -1,10 +1,10 @@
-signInButton = { xpath: '//*[@id="page"]/header/div[1]/div[1]/div/div/div/div/div[2]/div/div[2]/a' };
-emailField = { xpath: '//*[@id="input-email"]' };
-passwordField = { xpath: '//*[@id="input-password"]' };
-loginButton = { xpath: '//*[@id="content"]/div/div[2]/div/form/input' };
-myOrdersText = { xpath: '//*[@id="content"]/h2[2]' };
-languageSelectDropDown = { xpath: '//*[@id="form-language"]/div/span' };
-selectEnglishButton = { xpath: '//*[@id="form-language"]/div/ul/li[1]/button' };
+const signInButton = { xpath: '//*[@id="page"]/header/div[1]/div[1]/div/div/div/div/div[2]/div/div[2]/a' };
+const emailField = { xpath: '//*[@id="input-email"]' };
+const passwordField = { xpath: '//*[@id="input-password"]' };
+const loginButton = { xpath: '//*[@id="content"]/div/div[2]/div/form/input' };
+const myOrdersText = { xpath: '//*[@id="content"]/h2[2]' };
+const languageSelectDropDown = { xpath: '//*[@id="form-language"]/div/span' };
+const selectEnglishButton = { xpath: '//*[@id="form-language"]/div/ul/li[1]/button' };
 
 module.exports = function () {
   return actor({

@@ -1,6 +1,3 @@
-const { subTotal, flatShippingRate } = require("../pages/cart");
-const steps_file = require("../steps_file");
-
 const USER = {
   email: "360testuser@test.com",
   password: "password",
@@ -18,15 +15,17 @@ Before(({ I }) => {
 });
 
 Scenario('buy product', async ({ I, cartPage, productPage, successPage }) => {
-  I.amOnPage('/index.php?route=product/product&product_id=44');
+  I.amOnPage('/index.php?route=product/product&path=260&product_id=48');
   productPage.selectColor();
   productPage.selectSize();
+  const productPrice = await productPage.getProductPrice();
   productPage.addToCart();
   productPage.openCart();
-  const productPrice = await productPage.getProductPrice();
-  console.log('productPrice: ', productPrice);
-  const totalPrice = await cartPage.getTotalPrice();
-  I.assertEqual(subTotal + flatShippingRate, totalPrice, "Prices are not in match!");
   cartPage.proceedToCheckOut();
+  cartPage.proceedToLastStep();
+  const flatShippingRate = await cartPage.getFlatShippingRate();
+  const totalPrice = await cartPage.getTotalPrice();
+  I.assertEqual(productPrice + flatShippingRate, totalPrice, "Prices are not in match!");
+  cartPage.completePurchase();
   successPage.verifySuccessfulPurchase();
 }).tag("buy");

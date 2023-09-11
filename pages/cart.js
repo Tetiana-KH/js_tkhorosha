@@ -17,10 +17,10 @@ module.exports = {
   deliveryMethodContinueButton: { xpath: '//*[@id="button-shipping-method"]' },
   termsCheckbox: { xpath: '//*[@id="agree1"]' },
   paymentMethodContinueButton: { xpath: '//*[@id="button-payment-method"]' },
-  subTotalPrice: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[1]/td[2]' },
-  flatShippingRate: { xpath: '//*[@id="content"]/div[2]/div/table/tbody/tr[2]/td[2]' },
-  totalPrice: { xpath: '//*[@id="content"]/div[2]/div/table/tbody/tr[2]/td[2]' },
-  confirmCheckOutButton: { xpath: '//*[@id="content"]/div[3]/div[2]/a' },
+  subTotalPrice: { xpath: '//table[@id="content"]/div[2]/div/table/tbody/tr/td[@class="text-right"]' },
+  flatShippingRate: { xpath: '//td[@class="text-right"]' },
+  totalPrice: { xpath: '//table[@id="content"]/div[2]/div/table/tbody/tr/td[2]' },
+  confirmOrderButton: { xpath: '//*[@id="content"]/div[3]/div[2]/a' },
 
   payForProduct() {
     I.click(this.termsCheckBox);
@@ -35,19 +35,29 @@ module.exports = {
     return this.parsePrice(await I.grabTextFrom(this.totalPrice));
   },
 
+  async getFlatShippingRate() {
+    return this.parsePrice(await I.grabTextFrom(this.flatShippingRate));
+  },
+
   async proceedToCheckOut() {
     I.click(this.shippingAndTaxesDropDown);
     I.click(this.getQuotesButton);
     I.waitForVisible(this.flatShippingRateText, 5);
+  },
+
+  async proceedToLastStep() {
     I.click(this.flatShippingRateRadioButton);
     I.click(this.applyShippingButton);
+  },
+
+  async completePurchase() {
     I.click(this.checkOutButton);
+    I.click(this.billingDetailsContinueButton);
     I.click(this.deliveryDetailsContinueButton);
     I.click(this.deliveryMethodContinueButton);
     I.click(this.termsCheckbox);
     I.click(this.paymentMethodContinueButton);
-    I.assertEqual(subTotal + flatShippingRate, totalPrice, "Prices are not in match!");
-    I.click(this.confirmCheckOutButton);
+    I.click(this.confirmOrderButton);
   },
 
   parsePrice(priceString) {
