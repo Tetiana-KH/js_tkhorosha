@@ -33,9 +33,4 @@ module.exports = {
   addToCart() {
     I.click(this.addToCartButton);
   },
-
-  openCart() {
-    I.click(this.myAccountSpoiler);
-    I.click(this.shoppingCartButton);
-  },
 }
