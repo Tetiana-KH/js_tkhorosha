@@ -1,26 +1,22 @@
-const { pause } = require("codeceptjs");
-const { billingDetailsDropDown, newAddressRadioButton, firstName, lastName, address1, city, postCode, country, stateOption, confirmOrderButton } = require("./pages/cart");
-const { myAccountSpoiler, shoppingCartButton } = require("./pages/product");
-const { languageSelectDropDown, selectEnglishButton } = require("./pages/account");
-
-email = { css: "#input-email" };
-password = { css: "#input-password" };
-signInButton = { xpath: '//a[text()="Sign In"]' };
-loginButton = { xpath: '//input[@type="submit"]' };
+signInButton = { xpath: '//*[@id="page"]/header/div[1]/div[1]/div/div/div/div/div[2]/div/div[2]/a' };
+emailField = { xpath: '//*[@id="input-email"]' };
+passwordField = { xpath: '//*[@id="input-password"]' };
+loginButton = { xpath: '//*[@id="content"]/div/div[2]/div/form/input' };
 myOrdersText = { xpath: '//*[@id="content"]/h2[2]' };
+languageSelectDropDown = { xpath: '//*[@id="form-language"]/div/span' };
+selectEnglishButton = { xpath: '//*[@id="form-language"]/div/ul/li[1]/button' };
 
 module.exports = function () {
   return actor({
-
     login(user) {
       this.amOnPage('/');
       this.click(languageSelectDropDown);
       this.click(selectEnglishButton);
       this.click(signInButton);
-      this.fillField(email, user.email);
-      this.fillField(password, user.password);
+      this.fillField(emailField, user.email);
+      this.fillField(passwordField, user.password);
       this.click(loginButton);
       this.seeTextEquals("My Orders", myOrdersText);
-    },
-});
+    }
+  });
 }

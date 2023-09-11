@@ -32,7 +32,6 @@ exports.config = {
     accountPage: "./pages/account.js",
     productPage: "./pages/product.js",
     cartPage: "./pages/cart.js",
-    checkoutPage: "./pages/checkout.js",
     successPage: "./pages/success.js",
   },
   name: 'js_tkhorosha'

@@ -8,6 +8,7 @@ module.exports = {
   flatShippingRate: { xpath: '//*[@id="collapse-shipping-method"]/div/p[3]' },
   shippingAndTaxesDropDown: { xpath: '//*[@id="accordion"]/div[2]/div[1]/h4/a' },
   getQuotesButton: { xpath: '//*[@id="button-quote"]' },
+  flatShippingRateText: { xpath: '//*[@id="modal-shipping"]/div/div/div[2]/div/label' },
   flatShippingRateRadioButton: { xpath: '//*[@id="modal-shipping"]/div/div/div[2]/div/label/input' },
   applyShippingButton: { xpath: '//*[@id="button-shipping"]' },
   checkOutButton: { xpath: '//*[@id="content"]/div[3]/div[2]/a' },
@@ -17,9 +18,9 @@ module.exports = {
   termsCheckbox: { xpath: '//*[@id="agree1"]' },
   paymentMethodContinueButton: { xpath: '//*[@id="button-payment-method"]' },
   subTotalPrice: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[1]/td[2]' },
-  flatShippingRate: { xpath: '//*[@id="collapse-checkout-confirm"]/div/div[1]/table/tfoot/tr[2]/td[2]' },
+  flatShippingRate: { xpath: '//*[@id="content"]/div[2]/div/table/tbody/tr[2]/td[2]' },
   totalPrice: { xpath: '//*[@id="content"]/div[2]/div/table/tbody/tr[2]/td[2]' },
-  confirmOrderButton: { xpath: '//*[@id="button-confirm"]' },
+  confirmCheckOutButton: { xpath: '//*[@id="content"]/div[3]/div[2]/a' },
 
   payForProduct() {
     I.click(this.termsCheckBox);
@@ -37,7 +38,7 @@ module.exports = {
   async proceedToCheckOut() {
     I.click(this.shippingAndTaxesDropDown);
     I.click(this.getQuotesButton);
-    I.waitForVisible('//*[@id="modal-shipping"]/div/div/div[2]/div/label', 5);
+    I.waitForVisible(this.flatShippingRateText, 5);
     I.click(this.flatShippingRateRadioButton);
     I.click(this.applyShippingButton);
     I.click(this.checkOutButton);
@@ -45,9 +46,8 @@ module.exports = {
     I.click(this.deliveryMethodContinueButton);
     I.click(this.termsCheckbox);
     I.click(this.paymentMethodContinueButton);
-    const totalPrice = await cartPage.getTotalPrice();
     I.assertEqual(subTotal + flatShippingRate, totalPrice, "Prices are not in match!");
-    I.click(this.confirmOrderButton);
+    I.click(this.confirmCheckOutButton);
   },
 
   parsePrice(priceString) {
@@ -55,7 +55,7 @@ module.exports = {
     return parseFloat(priceString.replace(/[^0-9.]/g, ''));
   },
 
-  async getProductPrice() {
+  async getTotalPrice() {
     return this.parsePrice(await I.grabTextFrom(this.subTotalPrice)) + this.parsePrice(await I.grabTextFrom(this.flatShippingRate));
   },
 }

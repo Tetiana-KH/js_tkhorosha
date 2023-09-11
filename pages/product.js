@@ -26,7 +26,7 @@ module.exports = {
   },
 
   async getProductPrice() {
-    return this.parsePrice(await I.grabTextFrom(this.productPriceText)) + this.parsePrice(await I.grabTextFrom(this.colorOption)) + this.parsePrice(await I.grabTextFrom(this.sizeOption));
+    return this.parsePrice(await I.grabTextFrom(this.productPriceText)) + this.parsePrice(await I.grabTextFrom(this.colorOption)) + this.parsePrice(await I.grabTextFrom(this.sizeOption)) + this.parsePrice(await I.grabTextFrom(this.flatShippingRate));
   },
 
   addToCart() {

@@ -1,8 +1,6 @@
 const { I } = inject();
 
 module.exports = {
-  languageSelectDropDown: { xpath: '//*[@id="form-language"]/div/span' },
-  selectEnglishButton: { xpath: '//*[@id="form-language"]/div/ul/li[1]/button' },
   h1: { xpath: '//*[@id="content"]/h1' },
   firstNameField: { xpath: '//*[@id="input-firstname"]' },
   lastNameField: { xpath: '//*[@id="input-lastname"]' },

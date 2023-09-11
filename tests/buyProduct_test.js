@@ -21,12 +21,12 @@ Scenario('buy product', async ({ I, cartPage, productPage, successPage }) => {
   I.amOnPage('/index.php?route=product/product&product_id=44');
   productPage.selectColor();
   productPage.selectSize();
+  productPage.addToCart();
+  productPage.openCart();
   const productPrice = await productPage.getProductPrice();
   console.log('productPrice: ', productPrice);
   const totalPrice = await cartPage.getTotalPrice();
   I.assertEqual(subTotal + flatShippingRate, totalPrice, "Prices are not in match!");
-  productPage.addToCart();
-  productPage.openCart();
   cartPage.proceedToCheckOut();
   successPage.verifySuccessfulPurchase();
 }).tag("buy");
