@@ -36,5 +36,5 @@ module.exports = {
   verifySuccessfulRegistration() {
     const regTitleText = 'Your Account Has Been Created!';
     I.seeTextEquals(regTitleText, this.h1);
-  }
+  },
 }
