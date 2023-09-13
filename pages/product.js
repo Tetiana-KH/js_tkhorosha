@@ -22,12 +22,12 @@ module.exports = {
   },
 
   parsePrice(priceString) {
-    console.log('parsed price:', parseFloat(priceString.replace(/[^0-9.]/g, '')));
+    console.log('product price:', parseFloat(priceString.replace(/[^0-9.]/g, '')));
     return parseFloat(priceString.replace(/[^0-9.]/g, ''));
   },
 
   async getProductPrice() {
-    return this.parsePrice(await I.grabTextFrom(this.productPriceText)) + this.parsePrice(await I.grabTextFrom(this.colorOption)) + this.parsePrice(await I.grabTextFrom(this.sizeOption)) + this.parsePrice(await I.grabTextFrom(this.flatShippingRate));
+    return this.parsePrice(await I.grabTextFrom(this.productPriceText)) + this.parsePrice(await I.grabTextFrom(this.colorOption)) + this.parsePrice(await I.grabTextFrom(this.sizeOption));
   },
 
   addToCart() {
