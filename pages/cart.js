@@ -10,13 +10,14 @@ module.exports = {
   shippingAndTaxesDropDown: { xpath: '//*[@id="accordion"]/div[2]/div[1]/h4/a' },
   getQuotesButton: { xpath: '//*[@id="button-quote"]' },
   flatRateText: { xpath: '//*[@id="collapse-shipping-method"]/div/p[2]' },
-  checkOutButton: { xpath: '//ul[@id="cart"]//li/div/a[contains(text(), "Checkout")]' },
+  checkOutButton: { xpath: '//div/a[contains(text(), "Checkout")]' },
   billingDetailsContinueButton: { xpath: '//*[@id="button-payment-address"]' },
   deliveryDetailsContinueButton: { xpath: '//*[@id="button-shipping-address"]' },
   deliveryMethodContinueButton: { xpath: '//*[@id="button-shipping-method"]' },
   termsCheckbox: { xpath: '//*[@id="agree1"]' },
   paymentMethodContinueButton: { xpath: '//*[@id="button-payment-method"]' },
   subTotalPrice: { xpath: '//table[@id="content"]/div[2]/div/table/tbody/tr/td[@class="text-right"]' },
+  unavailableProduct: { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td[2]/span' },
 
   payForProduct() {
     I.click(this.termsCheckBox);
@@ -47,7 +48,17 @@ module.exports = {
   },
 
   parsePrice(priceString) {
-    console.log('parsed price:', parseFloat(priceString.replace(/[^0-9.]/g, '')));
+    console.log('total price:', parseFloat(priceString.replace(/[^0-9.]/g, '')));
     return parseFloat(priceString.replace(/[^0-9.]/g, ''));
+  },
+
+  async throwNewError() {
+    if (await this.checkElementExists()) {
+      throw new Error("Product is n/a");
+    }
+  },
+
+  async checkElementExists() {
+    return await tryTo(() => I.seeElement(this.unavailableProduct));
   },
 }

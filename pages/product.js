@@ -11,14 +11,26 @@ module.exports = {
   myAccountSpoiler: { xpath: '//*[@id="top-links"]/ul/li/span/span' },
   shoppingCartButton: { xpath: '//*[@id="top-links"]/ul/li/ul/li[5]/a' },
 
-  selectColor() {
-    I.click(this.colorDropDown);
-    I.click(this.colorOption);
+  async selectColor() {
+    if (await this.checkColorExists()) {
+      I.click(this.colorDropDown);
+      I.click(this.colorOption);
+    }
   },
 
-  selectSize() {
-    I.click(this.sizeDropDown);
-    I.click(this.sizeOption);
+  async selectSize() {
+    if (await this.checkSizeExists()) {
+      I.click(this.sizeDropDown);
+      I.click(this.sizeOption);
+    }
+  },
+
+  async checkColorExists() {
+  return Boolean(await I.grabNumberOfVisibleElements(this.colorDropDown));
+  },
+
+  async checkSizeExists() {
+    return await tryTo(() => I.seeElement(this.sizeDropDown));
   },
 
   parsePrice(priceString) {

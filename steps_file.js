@@ -17,6 +17,10 @@ module.exports = function () {
       this.fillField(passwordField, user.password);
       this.click(loginButton);
       this.seeTextEquals("My Orders", myOrdersText);
+    },
+
+    logoff() {
+      console.log('User is logged off!');
     }
   });
 }
