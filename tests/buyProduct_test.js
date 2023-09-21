@@ -1,5 +1,5 @@
-const fileReader = require('./helpers/fileReader');
-const PATH = './tests/productIds.txt';
+const fileReader = require('../helpers/fileReader');
+const PATH = './productIds.txt';
 const productIds = fileReader.readFile(PATH);
 
 const USER = {
@@ -12,24 +12,16 @@ const USER = {
   address1: "Dubai str 1",
 };
 
-let productLinks = [44, 48, 68, 32];
-const productList = [44, 48, 68, 32];
-const randomIndex = Math.floor(Math.random() * productList.length);
-const selectedProduct = productList[randomIndex];
-
 Feature('buy product');
 
-Before(({ I }) => {
+Before(({ I, basePage }) => {
   I.login(USER);
+  basePage.clearCart();
 });
 
-Scenario('clear cart', async ({ I, basePage }) => {
-  I.amOnPage('/index.php?route=common/home');
-  basePage.clearCart();
-}).tag("clear");
+const randomIndex = Math.floor(Math.random() * productIds.length);
 
-Data(productLinks).Scenario('buy product', async ({ I, productPage, cartPage, current, successPage }) => {
-  console.log(fileReader.convertStringToArray(productIds));
+Data([productIds[randomIndex]]).Scenario('buy product', async ({ I, productPage, cartPage, current, successPage }) => {
   I.amOnPage('/index.php?route=product/product&product_id=' + current);
   console.log("Color exists?", await productPage.checkColorExists());
   console.log("Size exists?", await productPage.checkSizeExists());

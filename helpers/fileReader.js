@@ -7,5 +7,5 @@ module.exports = {
 
     convertStringToArray(string) {
         return string.split("\r\n");
-    }
+    },
 }

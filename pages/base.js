@@ -1,10 +1,9 @@
 const { I } = inject();
 
 module.exports = {
-  myAccountSpoiler: { xpath: '//*[@id="top-links"]/ul/li/span/span' },
   registerButton: { xpath: '//*[@id="top-links"]/ul/li/ul/li[1]/a' },
-  shoppingCartButton: { xpath: '//*[@id="top-links"]/ul/li/ul/li[5]/a' },
-  removeProductButton: { xpath: '//*[@id="content"]/form/div/table/tbody/tr[1]/td[4]/div/span/button[2]' },
+  shoppingCartIcon: { xpath: '//*[@id="cart"]/button/i' },
+  removeProductButton: { xpath: '//*[@id="cart"]/ul/li[1]/div[1]/button[2]/i' },
 
   clickMyAccount() {
     I.click(this.myAccountSpoiler);
@@ -15,11 +14,10 @@ module.exports = {
   },
 
   async clearCart() {
-    I.click(this.myAccountSpoiler);
-    I.click(this.shoppingCartButton);
+    I.click(this.shoppingCartIcon);
     const numberOfVisibleElements = await I.grabNumberOfVisibleElements(this.removeProductButton);
     for (let i = 0; i < numberOfVisibleElements; i++) {
-    I.click(this.removeProductButton, 5);
+    I.click(this.removeProductButton);
     }
   },
 }

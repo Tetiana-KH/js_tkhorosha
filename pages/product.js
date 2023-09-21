@@ -26,7 +26,7 @@ module.exports = {
   },
 
   async checkColorExists() {
-  return Boolean(await I.grabNumberOfVisibleElements(this.colorDropDown));
+    return Boolean(await I.grabNumberOfVisibleElements(this.colorDropDown));
   },
 
   async checkSizeExists() {
@@ -39,7 +39,18 @@ module.exports = {
   },
 
   async getProductPrice() {
-    return this.parsePrice(await I.grabTextFrom(this.productPriceText)) + this.parsePrice(await I.grabTextFrom(this.colorOption)) + this.parsePrice(await I.grabTextFrom(this.sizeOption));
+    let totalPrice = this.parsePrice(await I.grabTextFrom(this.productPriceText));
+    if (await this.checkColorExists()) {
+      I.click(this.colorDropDown);
+      I.click(this.colorOption);
+      totalPrice += this.parsePrice(await I.grabTextFrom(this.colorOption));
+    }
+    if (await this.checkSizeExists()) {
+      I.click(this.sizeDropDown);
+      I.click(this.sizeOption);
+      totalPrice += this.parsePrice(await I.grabTextFrom(this.sizeOption));
+    }
+    return totalPrice;
   },
 
   addToCart() {

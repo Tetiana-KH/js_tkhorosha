@@ -52,13 +52,11 @@ module.exports = {
     return parseFloat(priceString.replace(/[^0-9.]/g, ''));
   },
 
-  async throwNewError() {
-    if (await this.checkElementExists()) {
-      throw new Error("Product is n/a");
-    }
-  },
-
   async checkElementExists() {
     return await tryTo(() => I.seeElement(this.unavailableProduct));
+  },
+
+  async throwNewError() {
+      throw new Error("Product is n/a");
   },
 }
