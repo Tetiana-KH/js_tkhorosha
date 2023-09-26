@@ -24,17 +24,17 @@ module.exports = {
     I.click(this.continuePaymentButton);
   },
 
-  parsePrice(priceString) {
-    return parseFloat(priceString.replace(/[^0-9.]/g, ''));
-  },
-
   async getTotalPrice() {
-    return this.parsePrice(await I.grabTextFrom(this.totalPrice));
+    const totalPriceString = await I.grabTextFrom(this.totalPrice);
+    const totalPrice = await I.grabPriceFromString(totalPriceString);
+    return totalPrice;
   },
 
   async getFlatShippingRate() {
-    return this.parsePrice(await I.grabTextFrom(this.flatShippingRate));
-  },
+    const flatShippingRateString = await I.grabTextFrom(this.flatShippingRate);
+    const flatShippingRate = await I.grabPriceFromString(flatShippingRateString);
+    return flatShippingRate;
+  },  
 
   async proceedToCheckOut() {
     I.click(this.cartIcon);
@@ -47,16 +47,19 @@ module.exports = {
     I.click(this.paymentMethodContinueButton);
   },
 
-  parsePrice(priceString) {
-    console.log('total price:', parseFloat(priceString.replace(/[^0-9.]/g, '')));
-    return parseFloat(priceString.replace(/[^0-9.]/g, ''));
+  async parsePrice(priceString) {
+    const price = await I.grabPriceFromString(priceString);
+    console.log('total price:', price);
+    return price;
   },
 
-  async checkElementExists() {
+  async isProductUnavailable() {
     return await tryTo(() => I.seeElement(this.unavailableProduct));
   },
 
   async throwNewError() {
+    if (!(await this.isProductUnavailable())) {
       throw new Error("Product is n/a");
+    }
   },
 }

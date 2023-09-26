@@ -1,6 +1,7 @@
 const fileReader = require('../helpers/fileReader');
 const PATH = './productIds.txt';
-const productIds = fileReader.readFile(PATH);
+const productIds = fileReader.convertStringToArray(PATH);
+const randomIndex = Math.floor(Math.random() * productIds.length);
 
 const USER = {
   email: "360testuser@test.com",
@@ -19,12 +20,8 @@ Before(({ I, basePage }) => {
   basePage.clearCart();
 });
 
-const randomIndex = Math.floor(Math.random() * productIds.length);
-
 Data([productIds[randomIndex]]).Scenario('buy product', async ({ I, productPage, cartPage, current, successPage }) => {
   I.amOnPage('/index.php?route=product/product&product_id=' + current);
-  console.log("Color exists?", await productPage.checkColorExists());
-  console.log("Size exists?", await productPage.checkSizeExists());
   productPage.selectColor();
   productPage.selectSize();
   const productPrice = await productPage.getProductPrice();
