@@ -1,6 +1,9 @@
 const fileReader = require('../helpers/fileReader');
+const PriceGrabber = require('../helpers/pricegrabber_helper');
+const elementChecker = require('../helpers/elementChecker_helper');
 const PATH = './productIds.txt';
-const productIds = fileReader.convertStringToArray(PATH);
+const fileContent = fileReader.readFile(PATH, 'utf8');
+const productIds = fileReader.convertStringToArray(fileContent);
 const randomIndex = Math.floor(Math.random() * productIds.length);
 
 const USER = {
@@ -22,10 +25,10 @@ Before(({ I, basePage }) => {
 
 Data([productIds[randomIndex]]).Scenario('buy product', async ({ I, productPage, cartPage, current, successPage }) => {
   I.amOnPage('/index.php?route=product/product&product_id=' + current);
-  productPage.selectColor();
-  productPage.selectSize();
+  //productPage.selectColor();
+  //productPage.selectSize();
   const productPrice = await productPage.getProductPrice();
-  productPage.addToCart();
+  productPage.addProductToCart();
   console.log("Product is n/a", await cartPage.throwNewError());
   cartPage.proceedToCheckOut();
   const flatShippingRate = await cartPage.getFlatShippingRate();

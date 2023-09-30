@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 module.exports = {
-    readFile(path) {
-        return fs.readFileSync(path, 'utf8');
+    readFile(PATH) {
+        return fs.readFileSync(PATH, 'utf8');
     },
 
     convertStringToArray(string) {
