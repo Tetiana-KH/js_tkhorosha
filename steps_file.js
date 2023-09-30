@@ -5,6 +5,7 @@ const loginButton = { xpath: '//*[@id="content"]/div/div[2]/div/form/input' };
 const myOrdersText = { xpath: '//*[@id="content"]/h2[2]' };
 const languageSelectDropDown = { xpath: '//*[@id="form-language"]/div/span' };
 const selectEnglishButton = { xpath: '//*[@id="form-language"]/div/ul/li[1]/button' };
+const signOutButton = { xpath: '//*[@id="page"]/header/div[1]/div[1]/div/div/div/div/div[2]/div/div[2]/a' };
 
 module.exports = function () {
   return actor({
@@ -17,6 +18,11 @@ module.exports = function () {
       this.fillField(passwordField, user.password);
       this.click(loginButton);
       this.seeTextEquals("My Orders", myOrdersText);
+    },
+
+    logoff() {
+      this.click(signOutButton);
+      console.log('User is logged off!');
     }
   });
 }

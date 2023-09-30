@@ -24,7 +24,13 @@ exports.config = {
     },
     ChaiWrapper: {
       require: "codeceptjs-chai"
-    }
+    },
+    PriceGrabber: {
+      require: './helpers/pricegrabber_helper.js',
+    },
+    ElementChecker: {
+      require: './helpers/elementChecker_helper.js',
+    },
   },
   include: {
     I: './steps_file.js',
